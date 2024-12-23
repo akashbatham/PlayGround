@@ -1,0 +1,99 @@
+Pytest
+1. Install - pip install pytest
+2. Check version - pytest --version
+3. Create new package
+create a python file and follow convections like "test_NameofFile"
+when we run pytest command in CMD then it searches for python file with Test in the front of their names
+The code should be written in Functions as per pytest standards
+Example -
+	def test_FirstProgram():  #pytest method name should always start with "Test_MethodName" or "MethodName_Test_"
+
+We cannot run this file directly from pycharm normally
+---
+
+PyTest Runner Location
+- Edit COnfgrations > + > Python tests
+	Now you can the run the file normally
+
+Running Pytest file from CMD
+To run all the pytest files in CMD
+1.	Copy the path of pytest folder
+2.	Open CMD > Navigate to that path
+3.	py.test[To run all the pytest files] gives out less information
+4.	py.test -v[here v stands for verbose and gives out more information]
+5.	py.test -v -s[s helps the user to get logs as well "print()"]
+
+
+pytest methods if they have same name then it will override the method
+keep the method names different from one another
+
+-------------
+
+Assertions in pytest
+def test_onep:
+	msg = "Hello"
+	assert msg == "Hi", "Test will fail and return False"
+
+
+---------
+Running selected pytest one or more files from CMD
+
+py.test test_filename -v -s[This will run only the mentioned file name]
+
+-----
+Testcase run only if they have "Creditcard" in method name
+py.test -k Creditcard -v -s [This will search all the methods that have Creditcard in their name and would only run those methods]
+
+to run test of a single file and also run methods that have specific name like "Payment"
+py.test <FileName> -k "Payment" -v -s
+
+
+-----
+How to run Smoke test cases
+there is a concept called mark, which will help you in running the marked method
+to use the marks you need to import the package .. import pytest
+SMOKE mark is used to mark the test cases as smoke and it can be used to run those test cases only
+
+@pytest.mark.smoke
+def test_FirstProgram():
+	print("Inside smoke")
+
+
+to run the methods that are marked as smoke we have to use the keywork -m(used to run marked methods) instead of -k(used to run specific method in a file)
+
+py.test -m smoke -v -s
+
+----
+How to skip a test case in pytest
+there is a mark called SKIP which helps in skipping the tests which has known issues
+It will be automatically skipped when you run all the test cases in pytest
+
+@pytest.mark.smoke
+@pytest.mark.skip
+def test_FirstProgram():
+	print("Inside smoke")
+
+py.test -m -v -s
+
+----
+How to run a test case but do not want the report for the testcase
+There is a mark called XFAIL
+
+@pytest.mark.xfail
+def test_FirstProgram():
+	print("Inside smoke")
+
+This will run the fill test caxse even if it fails but it will not show in output
+
+------
+FIXTURES
+Fixtures can be used when you apply them as an arguments in the test methods
+
+
+@pytest.fixture()
+def setup:
+    print("I will be executes first")
+
+
+def test_fixtureDemo(setup):
+    print("I am fixture demo")
